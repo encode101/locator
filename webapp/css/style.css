@@ -1,0 +1,22 @@
+/* Empty. Add your own CSS if you like */
+
+
+@font-face {
+  font-family: 'genericFont';
+  src: url('fonts/texgyreadventor-regular.otf'); /* IE9 Compat Modes */
+  src: url('fonts/texgyreadventor-regular.otf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+.socialLinks{list-style: none; padding: 0px; margin:0px;}
+.socialLinks li{line-height: 30px;}
+
+
+body{font-family:genericFont!important; background: url("../images/paper-background.jpg"); text-align: center;}
+
+.logo{}
+.catchy{margin: 30px 0 0 0; padding: 10px; background-color: #6699CC; color: #FFF;}
+
+
+      #map {
+        height: 100%;
+      }
