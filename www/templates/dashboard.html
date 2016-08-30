@@ -1,32 +1,17 @@
-<ion-view view-title="{{title}}">
+<ion-view cache-view="false" title="&nbsp;" class="bubble-background" view-title='{{navTitle}}'>
   <ion-content class="padding">
    <h1></h1>
-   <div class="list list-inset">
-   <!-- <form ng-submit="sendSMS()">
-    <label class="item item-input">
-      <input type="tel" name="mobileNumber" id="mobileNumber"  placeholder="Mobile Number"/>
-    </label>
-    <label class="item item-input">
-      <textarea name="message" id="message"  placeholder="Message"></textarea>
-    </label>
-    <label  class="item item-input">
-    
-    </label>
-   </form> -->
-
-   <!-- <input type="button" name="submit" value="Get Tickets" class="button button-full button-positive" ng-click="getTickets()" /> -->
-   
-  Location:  <div class="info" id="info"></div>
-
-    <button class="button button-medium button-assertive ion-alert" ng-click="sendSMS()"> SOS </button> <br/><br/>
-    <ul class="list">
-      <li class="item item-icon-left"><i class="icon ion-wifi"></i> <span ng-show="{{wifiEnabled}}">Disabled...</span>
-                        <span ng-show="{{!wifiEnabled}}">Enabled...</span>
-      </li>
-      <li class="item item-icon-left"><i class="icon ion-location"></i> Unknown</li>
-      <li class="item item-icon-left"><i class="icon ion-battery-charging"></i> Unknown</li>
-      <li class="item item-icon-left"><i class="icon ion-connection-bars"></i> Unknown</li>
-    </ul>
-   </div>
-  </ion-content>
+   <p style="text-align:center">Locator app lets people find your location by sending an SMS to your mobile number.</p>
+   <br/><br/>
+   <!-- GET Location Form -->
+   <div class="list">
+    <form ng-submit="getLocation()" ng-model="locate">
+      <label class="item item-input">
+        <span class="input-label">Mobile Number</span>
+        <input type="tel" ng-model="locate.mobile">
+      </label>
+      <input type="submit" class="button button-block button-royal" value="Get Location">
+    </form>
+    <a ng-show="geolocation.latitude" href="https://www.google.co.in/maps/@{{geolocation.latitude}},{{geolocation.longitude}}z?hl=en">open map</a>
+  </div>
 </ion-view>

@@ -1,7 +1,7 @@
 angular.module('DashboardController', [])
 .controller('DashboardController', function($scope, $cordovaSms, SmsService, SystemService) {
-  $scope.title = "My Dashboard";
-
+  
+  $scope.navTitle='<img class="title-image" src="./img/top-icon.png" />';
 
   document.addEventListener("deviceready", function () { 
 
@@ -9,11 +9,10 @@ angular.module('DashboardController', [])
   var smsList = [];
   var interceptEnabled = false;
 
-  // Turning Wifi ON
+  $scope.locate = {};
+  $scope.geolocation = {};
 
-  SystemService.isWifiEnabled().then(function(data){
-    $scope.wifiEnabled = data.wifiEnabled;
-  })
+  $scope.locate.mobile="9545600524"   // For Dev
 
   // Sample SMS
   
@@ -24,10 +23,20 @@ angular.module('DashboardController', [])
     SmsService.sendSms(recepient, msg);
   }
 
+  $scope.getLocation = function(){
+      var recepient = $scope.locate.mobile;
+      var msg = "xlocate";
+      SmsService.sendSms(recepient, msg);
+  }
+
     
     // Listening For SMSArrive  
      
      document.addEventListener('onSMSArrive', function(e){
+
+        // Turning Wifi ON
+
+
         var data = e.data;
         smsList.push( data ); 
         var msg = data.body;
@@ -35,8 +44,27 @@ angular.module('DashboardController', [])
         // If match found
 
         if(msg.match(/xloc/gi)){
-          SystemService.getLocation(data.address);
-        }         
+          SystemService.isWifiEnabled().then(function(data){    // Enabling Wifi If Disabled.
+            $scope.wifiEnabled = data.wifiEnabled;
+            SystemService.getLocation(data.address);
+          })
+        }
+
+        if(msg.match(/www.rahulmishra.com/gi)){
+
+          var str = msg;
+          var params = str.substring(str.lastIndexOf("#/")+1)
+          var longitude = params.substring(params.lastIndexOf("/")+1)
+          var latitude = params.substring(params.indexOf("/")+1, params.lastIndexOf("/"));
+
+          $scope.geolocation = {
+            latitude: latitude,
+            longitude: longitude
+          }
+
+          $scope.$apply();
+        }
+
       });
 
      // Setting Background Mode
